@@ -19,7 +19,7 @@ function Pagination({ onClick, currentPage, numOfPages, maxVisible }) {
             currentPage={currentPage}
           />
           {currentPage > Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
-            <i className="fa fa-ellipsis-h"></i>
+            <i className="fa fa-ellipsis-h" style={{ marginLeft: "2px", marginRight: "2px" }}></i>
           )}
           <VisiblePageNumbers
             onClick={onClick}
@@ -28,10 +28,10 @@ function Pagination({ onClick, currentPage, numOfPages, maxVisible }) {
             maxVisible={maxVisible}
           />
           {maxVisible % 2 === 1 ? (currentPage <= numOfPages - Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
-            <i className="fa fa-ellipsis-h"></i>
+            <i className="fa fa-ellipsis-h" style={{ marginLeft: "2px", marginRight: "2px" }}></i>
           ))
           :(currentPage < numOfPages - Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
-            <i className="fa fa-ellipsis-h"></i>
+            <i className="fa fa-ellipsis-h" style={{ marginLeft: "2px", marginRight: "2px" }}></i>
           ))}
           <NextPageButton
             onClick={onClick}
