@@ -8,8 +8,6 @@ import LastPageButton from './paginationButtons/LastPageButton';
 
 function Pagination({ onClick, currentPage, numOfPages, maxVisible }) {
 
-    const numOfVisibleButtons = maxVisible
-
     return (
         <Stack direction="horizontal">
           <FirstPageButton
@@ -20,19 +18,19 @@ function Pagination({ onClick, currentPage, numOfPages, maxVisible }) {
             onClick={onClick}
             currentPage={currentPage}
           />
-          {currentPage > Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
+          {currentPage > Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           )}
           <VisiblePageNumbers
             onClick={onClick}
             currentPage={currentPage}
             pages={numOfPages}
-            numOfVisibleButtons={numOfVisibleButtons}
+            maxVisible={maxVisible}
           />
-          {numOfVisibleButtons % 2 === 1 ? (currentPage <= numOfPages - Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
+          {maxVisible % 2 === 1 ? (currentPage <= numOfPages - Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           ))
-          :(currentPage < numOfPages - Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
+          :(currentPage < numOfPages - Math.ceil(maxVisible / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           ))}
           <NextPageButton

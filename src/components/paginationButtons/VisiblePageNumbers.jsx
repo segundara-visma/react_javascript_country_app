@@ -1,16 +1,16 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 
-function RenderPageNumbers({onClick, currentPage, pages, numOfVisibleButtons}) {
+function RenderPageNumbers({onClick, currentPage, pages, maxVisible}) {
     let visiblePages = [];
     let upperLimit, lowerLimit
 
-    if(pages > numOfVisibleButtons) {
-        const midCeil = Math.ceil(numOfVisibleButtons / 2)
-        const numOfButtonsToRight = Math.floor(numOfVisibleButtons / 2)
-        const numOfButtonsToLeft = numOfVisibleButtons % 2 === 1 ? numOfVisibleButtons - midCeil : numOfVisibleButtons - midCeil - 1
-        upperLimit = currentPage <= midCeil ? numOfVisibleButtons : (currentPage > midCeil && currentPage + midCeil < pages + 1 ? currentPage + numOfButtonsToRight : pages)
-        lowerLimit = currentPage > pages - midCeil ? pages - numOfVisibleButtons + 1 : (currentPage <= pages - midCeil && currentPage > midCeil ? currentPage - numOfButtonsToLeft : 1)
+    if(pages > maxVisible) {
+        const midCeil = Math.ceil(maxVisible / 2)
+        const numOfButtonsToRight = Math.floor(maxVisible / 2)
+        const numOfButtonsToLeft = maxVisible % 2 === 1 ? maxVisible - midCeil : maxVisible - midCeil - 1
+        upperLimit = currentPage <= midCeil ? maxVisible : (currentPage > midCeil && currentPage + midCeil < pages + 1 ? currentPage + numOfButtonsToRight : pages)
+        lowerLimit = currentPage > pages - midCeil ? pages - maxVisible + 1 : (currentPage <= pages - midCeil && currentPage > midCeil ? currentPage - numOfButtonsToLeft : 1)
     } else {
         upperLimit = pages
         lowerLimit = 1
