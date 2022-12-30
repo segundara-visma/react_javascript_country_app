@@ -61,7 +61,7 @@ function Home() {
             setCurrent={setCurrent}
             currentPage={currentPage}
             numOfPages={nPages}
-            totalVisiblePageNumbers={totalVisiblePageNumbers}
+            maxVisible={totalVisiblePageNumbers}
           />
         </>
       )}

@@ -4,9 +4,10 @@ import Button from 'react-bootstrap/Button';
 function RenderPageNumbers({setCurrent, currentPage, pages, numOfVisibleButtons}) {
     let visiblePages = [];
     const midCeil = Math.ceil(numOfVisibleButtons / 2)
-    const midFloor = Math.floor(numOfVisibleButtons / 2)
-    const upperLimit = currentPage <= midCeil ? numOfVisibleButtons : (currentPage > midCeil && currentPage + midCeil < pages + 1 ? currentPage + midFloor : pages)
-    const lowerLimit = currentPage > pages - midCeil ? pages - numOfVisibleButtons + 1 : (currentPage <= pages - midCeil && currentPage > midCeil ? currentPage - midFloor : 1)
+    const numOfButtonsToRight = Math.floor(numOfVisibleButtons / 2)
+    const numOfButtonsToLeft = numOfVisibleButtons % 2 === 1 ? numOfVisibleButtons - midCeil : numOfVisibleButtons - midCeil - 1
+    const upperLimit = currentPage <= midCeil ? numOfVisibleButtons : (currentPage > midCeil && currentPage + midCeil < pages + 1 ? currentPage + numOfButtonsToRight : pages)
+    const lowerLimit = currentPage > pages - midCeil ? pages - numOfVisibleButtons + 1 : (currentPage <= pages - midCeil && currentPage > midCeil ? currentPage - numOfButtonsToLeft : 1)
 
     for (let i = lowerLimit; i <= upperLimit; i++) {
         visiblePages.push(
