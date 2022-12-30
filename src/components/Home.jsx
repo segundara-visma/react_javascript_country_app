@@ -58,7 +58,7 @@ function Home() {
         <>
           <Listing countries={currentRecords}/>
           <Pagination
-            setCurrent={setCurrent}
+            onClick={setCurrent}
             currentPage={currentPage}
             numOfPages={nPages}
             maxVisible={totalVisiblePageNumbers}

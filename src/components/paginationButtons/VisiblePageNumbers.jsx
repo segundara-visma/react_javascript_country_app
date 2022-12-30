@@ -1,7 +1,7 @@
 import React from 'react'
 import Button from 'react-bootstrap/Button';
 
-function RenderPageNumbers({setCurrent, currentPage, pages, numOfVisibleButtons}) {
+function RenderPageNumbers({onClick, currentPage, pages, numOfVisibleButtons}) {
     let visiblePages = [];
     let upperLimit, lowerLimit
 
@@ -27,7 +27,7 @@ function RenderPageNumbers({setCurrent, currentPage, pages, numOfVisibleButtons}
                     <Button
                         variant="outline-secondary"
                         style={{ cursor: "pointer" }}
-                        onClick={() => setCurrent(i)}
+                        onClick={() => onClick(i)}
                     >
                         {i}
                     </Button>
