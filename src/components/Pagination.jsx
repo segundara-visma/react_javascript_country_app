@@ -20,7 +20,7 @@ function Pagination({ setCurrent, currentPage, numOfPages, maxVisible }) {
             setCurrent={setCurrent}
             currentPage={currentPage}
           />
-          {currentPage > Math.ceil(numOfVisibleButtons / 2) && (
+          {currentPage > Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           )}
           <VisiblePageNumbers
@@ -29,10 +29,10 @@ function Pagination({ setCurrent, currentPage, numOfPages, maxVisible }) {
             pages={numOfPages}
             numOfVisibleButtons={numOfVisibleButtons}
           />
-          {numOfVisibleButtons % 2 === 1 ? (currentPage <= numOfPages - Math.ceil(numOfVisibleButtons / 2) && (
+          {numOfVisibleButtons % 2 === 1 ? (currentPage <= numOfPages - Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           ))
-          :(currentPage < numOfPages - Math.ceil(numOfVisibleButtons / 2) && (
+          :(currentPage < numOfPages - Math.ceil(numOfVisibleButtons / 2) && numOfPages > maxVisible && (
             <i className="fa fa-ellipsis-h"></i>
           ))}
           <NextPageButton

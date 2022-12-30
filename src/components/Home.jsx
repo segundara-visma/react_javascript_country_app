@@ -31,7 +31,7 @@ function Home() {
   const nPages = Math.ceil(countries.length / recordsPerPage)
 
   useEffect(() => {
-    const endpoint = searchString ? urlWithSearchParams + searchString + '?fullText=true' : urlForAllResults
+    const endpoint = searchString ? urlWithSearchParams + searchString : urlForAllResults
     const getCountryList = () => {
       fetch(endpoint)
         .then((response) => response.json())
