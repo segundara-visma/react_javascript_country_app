@@ -6,7 +6,9 @@ import NextPageButton from './paginationButtons/NextPageButton';
 import FirstPageButton from './paginationButtons/FirstPageButton';
 import LastPageButton from './paginationButtons/LastPageButton';
 
-function Pagination({ setCurrent, currentPage, numOfPages }) {
+function Pagination({ setCurrent, currentPage, numOfPages, totalVisiblePageNumbers }) {
+
+    const numOfVisibleButtons = totalVisiblePageNumbers
 
     return (
         <Stack direction="horizontal">
@@ -18,11 +20,18 @@ function Pagination({ setCurrent, currentPage, numOfPages }) {
             setCurrent={setCurrent}
             currentPage={currentPage}
           />
+          {currentPage > Math.ceil(numOfVisibleButtons / 2) && (
+            <i className="fa fa-ellipsis-h"></i>
+          )}
           <VisiblePageNumbers
             setCurrent={setCurrent}
             currentPage={currentPage}
             pages={numOfPages}
+            numOfVisibleButtons={numOfVisibleButtons}
           />
+          {currentPage <= numOfPages - Math.ceil(numOfVisibleButtons / 2) && (
+            <i className="fa fa-ellipsis-h"></i>
+          )}
           <NextPageButton
             setCurrent={setCurrent}
             currentPage={currentPage}

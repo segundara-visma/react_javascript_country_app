@@ -9,6 +9,7 @@ function Home() {
   const [loading, setLoading] = useState(true);
   const [countries, setCountries] = useState([]);
   const [searchString, setSearchString] = useState("");
+  const [totalVisiblePageNumbers] = useState(5);
 
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(5);
@@ -30,7 +31,7 @@ function Home() {
   const nPages = Math.ceil(countries.length / recordsPerPage)
 
   useEffect(() => {
-    const endpoint = searchString ? urlWithSearchParams + searchString : urlForAllResults
+    const endpoint = searchString ? urlWithSearchParams + searchString + '?fullText=true' : urlForAllResults
     const getCountryList = () => {
       fetch(endpoint)
         .then((response) => response.json())
@@ -60,6 +61,7 @@ function Home() {
             setCurrent={setCurrent}
             currentPage={currentPage}
             numOfPages={nPages}
+            totalVisiblePageNumbers={totalVisiblePageNumbers}
           />
         </>
       )}
