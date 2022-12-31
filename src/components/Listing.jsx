@@ -1,16 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { Link } from "react-router-dom";
 
-function Listing({countries}) {
+function Listing({countries, sort, icon}) {
+
+  const [order, setOrder] = useState('asc');
+
+  const reSetOrder = () => {
+    setOrder(order === 'asc' ? 'desc' : 'asc')
+    sort(order)
+  }
 
   return (
     <Table striped bordered hover>
       <thead>
         <tr>
           <th>Flag</th>
-          <th>Name</th>
+          <th onClick={() => reSetOrder()}>Name <i className={`fa fa-${icon}`}></i></th>
           <th>Region</th>
           <th>Population</th>
           <th>Languages</th>

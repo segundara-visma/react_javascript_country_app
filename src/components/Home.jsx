@@ -10,6 +10,8 @@ function Home() {
   const [countries, setCountries] = useState([]);
   const [searchString, setSearchString] = useState("");
   const [totalVisiblePageNumbers] = useState(5);
+  const [sortingOrder, setSortingOrder] = useState('');
+  const [sortingIconPosition, setSortingIconPosition] = useState('sort');
 
   const [currentPage, setCurrentPage] = useState(1);
   const [recordsPerPage] = useState(5);
@@ -30,18 +32,51 @@ function Home() {
   const currentRecords = countries && countries.length ? countries.slice(indexOfFirstRecord, indexOfLastRecord) : [];
   const nPages = Math.ceil(countries.length / recordsPerPage)
 
+  const sort = (args) => {
+    setSortingOrder(args)
+    if(args === 'asc') {
+      setSortingIconPosition('caret-down')
+    } else {
+      setSortingIconPosition('caret-up')
+    }
+  }
+
   useEffect(() => {
-    const endpoint = searchString ? urlWithSearchParams + searchString : urlForAllResults
+    let newList
+    const endpoint = searchString ? urlWithSearchParams + searchString + '?fullText=true' : urlForAllResults
     const getCountryList = () => {
       fetch(endpoint)
         .then((response) => response.json())
         .then(data => {
-          setCountries(data)
-          setLoading(false)
+          if(data.length > 0){
+            if(sortingOrder === 'asc') {
+              newList = data.sort(
+                (p1, p2) =>
+                (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? -1 : 0
+              )
+              setCountries(newList)
+              setLoading(false)
+            } else if (sortingOrder === 'desc') {
+              newList = data.sort(
+                (p1, p2) =>
+                (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? -1 : 0
+              )
+              setCountries(newList)
+              setLoading(false)
+            } else {
+              setCountries(data)
+              setLoading(false)
+            }
+          } else if (data.status === 404) {
+            setLoading(false)
+            console.log('no result')
+          }
         })
     }
+
     getCountryList()
-  }, [searchString]);
+
+  }, [searchString, countries, currentPage, recordsPerPage, sortingOrder]);
 
   return (
     <div className="container mt-3">
@@ -54,9 +89,9 @@ function Home() {
           </Spinner>
         </div>
       )}
-      {currentRecords.length > 0 && (
+      {currentRecords && currentRecords.length > 0 && (
         <>
-          <Listing countries={currentRecords}/>
+          <Listing countries={currentRecords} sort={sort} icon={sortingIconPosition}/>
           <Pagination
             onClick={setCurrent}
             currentPage={currentPage}
@@ -67,7 +102,7 @@ function Home() {
       )}
       {!currentRecords.length && !loading && (
         <Alert variant="info" className="text-center">
-          Sorry your search yields no result!
+          Sorry your search yields no result! Check that you spelled the name of the country in full with no typo-error!
         </Alert>
       )}
     </div>
