@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import Table from 'react-bootstrap/Table';
-import Button from 'react-bootstrap/Button';
-import { Link } from "react-router-dom";
+import TableBody from './row'
 
 function Listing({countries, sort, icon}) {
 
@@ -25,27 +24,7 @@ function Listing({countries, sort, icon}) {
         </tr>
       </thead>
       <tbody>
-        {countries.map((country, key) => (
-          <tr key={key}>
-            <td>{country.flag}</td>
-            <td>{country.name.common}</td>
-            <td>{country.region}</td>
-            <td>{country.population}</td>
-            <td>{country.languages ? (
-              <ul>{(Object.values(country.languages)).map((item, key) => (
-                <li key={key}>{item}</li>))}
-              </ul>
-            ) : null}
-            </td>
-            <td>
-              <Link to={`/details/${country.name.common}`}>
-                <Button variant="light" data-cy={`detailsBtn-${country.name.common}`}>
-                  <i className="fa fa-angle-right"></i>
-                </Button>
-              </Link>
-            </td>
-          </tr>
-        ))}
+        <TableBody countries={countries}/>
       </tbody>
     </Table>
   );
