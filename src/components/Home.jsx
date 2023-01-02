@@ -31,11 +31,7 @@ function Home() {
 
   const sort = (args) => {
     setSortingOrder(args)
-    if(args === 'asc') {
-      setSortingIconPosition('caret-down')
-    } else {
-      setSortingIconPosition('caret-up')
-    }
+    setSortingIconPosition(args === 'asc' ? 'caret-down' : 'caret-up')
   }
 
   useEffect(() => {
@@ -71,7 +67,7 @@ function Home() {
     }
 
     const filteredData = (data) => {
-      let newArray =  _.filter(data, (item) => item.name.common.toLowerCase().startsWith(searchString.toLowerCase()))
+      const newArray =  _.filter(data, (item) => item.name.common.toLowerCase().startsWith(searchString.toLowerCase()))
       return newArray
     }
 
