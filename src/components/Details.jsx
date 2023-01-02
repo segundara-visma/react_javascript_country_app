@@ -26,7 +26,7 @@ export default function Details() {
   return (
     <>
         {countryDetails.map((detail, key) => (
-            <Container key={key}>
+            <Container key={key} className="px-5">
                 <Row className="mt-5">
                     <Col xs lg="1" style={{fontSize: "3rem"}}><Badge pill bg="danger">{detail.name.common.charAt(0)}</Badge></Col>
                     <Col>
@@ -39,8 +39,8 @@ export default function Details() {
                     </Col>
                     <Col xs lg="1" style={{fontSize: "2rem"}}><i className="fa fa-ellipsis-v"></i></Col>
                 </Row>
-                <Row className="mt-5">
-                    <Col style={{fontSize: "8rem"}}>
+                <Row className="mt-5" xs={1}>
+                    <Col style={{fontSize: "6rem"}}>
                         {(Object.values(detail.name.nativeName))[0].official}
                     </Col>
                 </Row>

@@ -17,7 +17,7 @@ function Listing({countries, sort, icon}) {
       <thead>
         <tr>
           <th>Flag</th>
-          <th onClick={() => reSetOrder()}>Name <i className={`fa fa-${icon}`}></i></th>
+          <th onClick={() => reSetOrder()} style={{ cursor: "pointer" }}>Name <i className={`fa fa-${icon}`}></i></th>
           <th>Region</th>
           <th>Population</th>
           <th>Languages</th>

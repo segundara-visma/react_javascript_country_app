@@ -15,13 +15,13 @@ function Header({showSearchResult}) {
   };
 
   const debouncedChangeHandler = useMemo(() => debounce(value =>
-    showSearchResult(value), 500), [showSearchResult]
+    showSearchResult(value), 1000), [showSearchResult]
   )
 
   return (
-    <Navbar bg="light" expand="lg">
-      <Container fluid>
-        <Navbar.Brand href="#"><i className="fa fa-bars"></i></Navbar.Brand>
+    <Navbar style={{ backgroundColor: 'blue' }}>
+      <Container>
+        <Navbar.Brand href="#" style={{ color: 'white' }}><i className="fa fa-bars"></i></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav
@@ -29,9 +29,10 @@ function Header({showSearchResult}) {
             style={{ maxHeight: '100px' }}
             navbarScroll
           >
-            <Nav.Link href="#home">Country</Nav.Link>
+            <Nav.Link href="#home" style={{ color: 'white' }}>Country</Nav.Link>
           </Nav>
-          <Form className="d-flex">
+        </Navbar.Collapse>
+        <Form className="d-flex">
             <Form.Control
                 placeholder="Search by country name"
                 aria-label="search"
@@ -39,8 +40,7 @@ function Header({showSearchResult}) {
                 onChange={searchStringHandler}
                 value={searchString}
             />
-          </Form>
-        </Navbar.Collapse>
+        </Form>
       </Container>
     </Navbar>
   );
