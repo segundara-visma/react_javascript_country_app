@@ -19,7 +19,7 @@ function Header({showSearchResult}) {
   )
 
   return (
-    <Navbar style={{ backgroundColor: 'blue' }}>
+    <Navbar bg="secondary">
       <Container>
         <Navbar.Brand href="#" style={{ color: 'white' }}><i className="fa fa-bars"></i></Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
