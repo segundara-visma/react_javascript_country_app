@@ -1,31 +1,37 @@
-import React, { useState, useEffect } from 'react'
+import React from 'react'
 import { useParams } from 'react-router-dom'
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Badge from 'react-bootstrap/Badge';
+import Alert from 'react-bootstrap/Alert';
+import Spinner from 'react-bootstrap/Spinner';
+import { useFetch } from '../services/useFetch'
 
 export default function Details() {
   const {name} = useParams();
 
-  const [countryDetails, setCountryDetails] = useState([]);
-
   const url = "https://restcountries.com/v3.1/name/"+name;
 
-  useEffect(() => {
-    fetch(url)
-      .then(res => {
-        if (!res.ok) {
-          return Error("Oh no");
-        }
-        return res.json();
-      })
-      .then(data => setCountryDetails(data));
-  }, [url]);
+  const {fetchedData,loading,error} = useFetch(url)
 
   return (
     <>
-        {countryDetails.map((detail, key) => (
+        {loading && (
+        <div className="text-center mt-5">
+            <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+            </Spinner>
+        </div>
+        )}
+        {error && (
+        <div className="text-center mt-5">
+            <Alert variant="danger" className="text-center">
+            {error.message}
+            </Alert>
+        </div>
+        )}
+        {fetchedData && fetchedData.length > 0 && !error && !loading && fetchedData.map((detail, key) => (
             <Container key={key} className="px-5">
                 <Row className="mt-5">
                     <Col xs lg="1" style={{fontSize: "3rem"}}><Badge pill bg="danger">{detail.name.common.charAt(0)}</Badge></Col>

@@ -5,7 +5,7 @@ import Pagination from "./Pagination";
 import Alert from 'react-bootstrap/Alert';
 import Spinner from 'react-bootstrap/Spinner';
 import _ from 'lodash'
-import { useFetch } from './useFetch'
+import { useFetch } from '../services/useFetch'
 
 function Home() {
   const [currentRecords, setCurrentRecords] = useState(null);
@@ -20,7 +20,7 @@ function Home() {
 
   const url = "https://restcountries.com/v3.1/all";
 
-  const {countries,loading,error} = useFetch(url)
+  const {fetchedData,loading,error} = useFetch(url)
 
   const showSearchResult = (searchString) => {
     setCurrentPage(1)
@@ -39,28 +39,28 @@ function Home() {
     const indexOfLastRecord = currentPage * recordsPerPage;
     const indexOfFirstRecord = indexOfLastRecord - recordsPerPage;
 
-    const getCountryList = (countries) => {
+    const getCountryList = (fetchedData) => {
       if(sortingOrder === 'asc') {
-        newList = countries.sort(
+        newList = fetchedData.sort(
           (p1, p2) =>
           (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? -1 : 0
         )
         const currentRecords = newList.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = countries && countries.length && Math.ceil(countries.length / recordsPerPage);
+        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
         setNPages(nPages)
       } else if (sortingOrder === 'desc') {
-        newList = countries.sort(
+        newList = fetchedData.sort(
           (p1, p2) =>
           (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? -1 : 0
         )
         const currentRecords = newList.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = countries && countries.length && Math.ceil(countries.length / recordsPerPage);
+        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
         setNPages(nPages)
       } else {
-        const currentRecords = countries && countries.length && countries.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = countries && countries.length && Math.ceil(countries.length / recordsPerPage);
+        const currentRecords = fetchedData && fetchedData.length && fetchedData.slice(indexOfFirstRecord, indexOfLastRecord);
+        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
         setNPages(nPages)
       }
@@ -71,11 +71,11 @@ function Home() {
       return newArray
     }
 
-    const data = searchString ? filteredData(countries) : countries
+    const data = searchString ? filteredData(fetchedData) : fetchedData
 
     getCountryList(data)
 
-  }, [searchString, countries, sortingOrder, currentPage, recordsPerPage]);
+  }, [searchString, fetchedData, sortingOrder, currentPage, recordsPerPage]);
 
   return (
     <div className="container mt-3">
