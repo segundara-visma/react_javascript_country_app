@@ -46,23 +46,17 @@ function Home() {
           (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? -1 : 0
         )
         const currentRecords = newList.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
-        setNPages(nPages)
       } else if (sortingOrder === 'desc') {
         newList = fetchedData.sort(
           (p1, p2) =>
           (p1.name.common.toUpperCase() < p2.name.common.toUpperCase()) ? 1 : (p1.name.common.toUpperCase() > p2.name.common.toUpperCase()) ? -1 : 0
         )
         const currentRecords = newList.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
-        setNPages(nPages)
       } else {
         const currentRecords = fetchedData && fetchedData.length && fetchedData.slice(indexOfFirstRecord, indexOfLastRecord);
-        const nPages = fetchedData && fetchedData.length && Math.ceil(fetchedData.length / recordsPerPage);
         setCurrentRecords(Array.isArray(currentRecords) ? currentRecords : [])
-        setNPages(nPages)
       }
     }
 
@@ -72,6 +66,8 @@ function Home() {
     }
 
     const data = searchString ? filteredData(fetchedData) : fetchedData
+    const nPages = data && data.length && Math.ceil(data.length / recordsPerPage);
+    setNPages(nPages)
 
     getCountryList(data)
 
